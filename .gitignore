@@ -1,0 +1,10 @@
+/node_modules
+/build
+
+# IDEs
+.vscode
+.idea
+
+# Package Manager
+
+*.lock

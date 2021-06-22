@@ -1,7 +1,7 @@
 import { AddAccount } from '../../../domain';
 import { MissingParamError } from '../../errors';
 import { InvalidParamError } from '../../errors/invalid-param';
-import { badRequest } from '../../helpers';
+import { badRequest, success } from '../../helpers';
 import { HttpRequest, HttpResponse, IController } from '../../protocols';
 
 export class SignUpController implements IController {
@@ -21,7 +21,10 @@ export class SignUpController implements IController {
     if (password !== passwordConfirmation) {
       return badRequest(new InvalidParamError('passwordConfirmation'));
     }
-    await this.addAccount.add({ username, password });
-    return await new Promise(resolve => resolve(null));
+    const account = await this.addAccount.add({ username, password });
+    if (account) {
+      return success(account);
+    }
+    return null;
   }
 }

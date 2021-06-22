@@ -1,4 +1,5 @@
 import { MissingParamError } from '../../errors';
+import { InvalidParamError } from '../../errors/invalid-param';
 import { badRequest } from '../../helpers';
 import { SignUpController } from './controller';
 
@@ -19,5 +20,13 @@ describe('SignUp Controller', () => {
     const sut = new SignUpController();
     const response = await sut.handle({ body: { username: 'any_username', password: 'any_password' } });
     expect(response).toEqual(badRequest(new MissingParamError('passwordConfirmation')));
+  });
+
+  test('When calling handle should if passwordConfirmation != password should return InvalidParamError.', async () => {
+    const sut = new SignUpController();
+    const response = await sut.handle({
+      body: { username: 'any_username', password: 'any_password', passwordConfirmation: 'wrong_password' },
+    });
+    expect(response).toEqual(badRequest(new InvalidParamError('passwordConfirmation')));
   });
 });

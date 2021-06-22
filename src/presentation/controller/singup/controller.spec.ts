@@ -1,7 +1,7 @@
 import { AccountModelDTO, AddAccount, AccountModel } from '../../../domain';
 import { MissingParamError } from '../../errors';
 import { InvalidParamError } from '../../errors/invalid-param';
-import { badRequest, success } from '../../helpers';
+import { badRequest, serverError, success } from '../../helpers';
 import { HttpRequest } from '../../protocols';
 import { SignUpController } from './controller';
 
@@ -85,5 +85,14 @@ describe('SignUp Controller', () => {
     jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(new Promise(resolve => resolve(mockedResponse)));
     const response = await sut.handle(makeRequest());
     expect(response).toEqual(success(mockedResponse));
+  });
+
+  test('When calling handle must return 500 if AddAccount throws.', async () => {
+    const { sut, addAccountStub } = makeSut();
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => {
+      throw new Error();
+    });
+    const response = await sut.handle(makeRequest());
+    expect(response).toEqual(serverError(new Error()));
   });
 });

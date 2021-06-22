@@ -25,6 +25,6 @@ export class SignUpController implements IController {
     if (account) {
       return success(account);
     }
-    return null;
+    return badRequest(new InvalidParamError('username'));
   }
 }

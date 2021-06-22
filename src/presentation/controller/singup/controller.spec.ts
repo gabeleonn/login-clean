@@ -1,7 +1,7 @@
 import { AccountModelDTO, AddAccount, AccountModel } from '../../../domain';
 import { MissingParamError } from '../../errors';
 import { InvalidParamError } from '../../errors/invalid-param';
-import { badRequest } from '../../helpers';
+import { badRequest, success } from '../../helpers';
 import { HttpRequest } from '../../protocols';
 import { SignUpController } from './controller';
 
@@ -68,5 +68,13 @@ describe('SignUp Controller', () => {
     const addSpy = jest.spyOn(addAccountStub, 'add');
     await sut.handle(makeRequest());
     expect(addSpy).toHaveBeenCalledWith({ username: 'any_username', password: 'any_password' });
+  });
+
+  test('When calling handle if no validation error should return the account.', async () => {
+    const { sut, addAccountStub } = makeSut();
+    const mockedResponse: AccountModel = { id: 'any_id', username: 'any_username', password: 'any_password' };
+    jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(new Promise(resolve => resolve(mockedResponse)));
+    const response = await sut.handle(makeRequest());
+    expect(response).toEqual(success(mockedResponse));
   });
 });

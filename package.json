@@ -6,9 +6,9 @@
   "scripts": {
     "start:dev": "nodemon src/main/bin/server.ts",
     "handle:staged": "lint-staged",
-    "test": "jest --passWithNoTests --runInBand",
-    "test:unit": "yarn test -c jest-unit.config.js",
-    "test:integration": "yarn test -c jest-integration.config.js",
+    "test": "jest --passWithNoTests --runInBand --silent --noStackTrace",
+    "test:unit": "yarn test --watch -c jest-unit.config.js",
+    "test:integration": "yarn test --watch -c jest-integration.config.js",
     "test:staged": "yarn test --findRelatedTests",
     "test:ci": "yarn test --coverage"
   },

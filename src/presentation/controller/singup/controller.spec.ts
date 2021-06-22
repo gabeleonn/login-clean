@@ -63,6 +63,15 @@ describe('SignUp Controller', () => {
     expect(response).toEqual(badRequest(new InvalidParamError('passwordConfirmation')));
   });
 
+  test('When calling handle if username exists should return InvalidParamError.', async () => {
+    const { sut, addAccountStub } = makeSut();
+    jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(new Promise(resolve => resolve(null)));
+    const response = await sut.handle({
+      body: { username: 'any_username', password: 'any_password', passwordConfirmation: 'any_password' },
+    });
+    expect(response).toEqual(badRequest(new InvalidParamError('username')));
+  });
+
   test('When calling handle if no validation error should call SignUpUsecase with right values.', async () => {
     const { sut, addAccountStub } = makeSut();
     const addSpy = jest.spyOn(addAccountStub, 'add');

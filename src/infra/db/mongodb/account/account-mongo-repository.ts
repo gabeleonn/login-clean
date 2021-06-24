@@ -10,6 +10,11 @@ export class AccountMongoRepository implements IAddAccountRepository, IUserExist
   }
 
   async exists(username: string): Promise<boolean> {
-    return await new Promise(resolve => resolve(null));
+    const accountCollection = await MongoHelper.getCollection('accounts');
+    const result = await accountCollection.findOne({ username });
+    if (result) {
+      return true;
+    }
+    return false;
   }
 }

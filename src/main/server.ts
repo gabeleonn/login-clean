@@ -60,7 +60,7 @@ const onListening = (): void => {
   console.log(`✔ Listening on ${bind}`);
 };
 
-MongoHelper.connect('mongodb://localhost:27017')
+MongoHelper.connect('mongodb://mongo:senha@localhost:27017')
   .then(async () => {
     server.listen(port);
     server.on('error', onError);

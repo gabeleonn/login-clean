@@ -46,7 +46,7 @@ const makeSut = (): SutTypes => {
   const usernmaeExistsRepositoryStub = makeUserExistsRepository();
   const encrypterStub = makeEncrypter();
   const addAccountRepositoryStub = makeAddAccountRepository();
-  const sut = new DbAddAccount(usernmaeExistsRepositoryStub, encrypterStub, addAccountRepositoryStub);
+  const sut = new DbAddAccount(encrypterStub, usernmaeExistsRepositoryStub, addAccountRepositoryStub);
   return {
     sut,
     usernmaeExistsRepositoryStub,

@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start:dev": "nodemon src/main/bin/server.ts",
+    "start:dev": "nodemon src/main/server.ts",
     "handle:staged": "lint-staged",
     "test": "jest --passWithNoTests --runInBand --silent --noStackTrace",
     "test:unit": "yarn test --watch -c jest-unit.config.js",
@@ -20,6 +20,8 @@
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.5",
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.12",
     "@types/jest": "^26.0.23",
     "@types/mongodb": "^3.6.18",
     "@types/node": "^15.12.2",
@@ -44,6 +46,9 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1",
+    "fast-glob": "^3.2.5",
     "mongodb": "^3.6.9"
   }
 }

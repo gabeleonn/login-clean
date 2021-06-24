@@ -2,11 +2,14 @@
 /build
 /coverage
 globalConfig.json
+/mongo;C
 
 # IDEs
 /.vscode
 /.idea
 
 # Package Manager
-
 *.lock
+
+# Config
+.env

@@ -8,8 +8,8 @@ export class DbAddAccount implements AddAccount {
   private readonly addAccountRepository: IAddAccountRepository;
 
   constructor(
-    userExistsRepository: IUserExistsRepository,
     encrypter: IEncrypter,
+    userExistsRepository: IUserExistsRepository,
     addAccountRepository: IAddAccountRepository,
   ) {
     this.userExistsRepository = userExistsRepository;
